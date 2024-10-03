@@ -2,10 +2,12 @@ import React, { useState, ref } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { contactInfo } from "../../cardComponets/ReduxComponents/slice";
+import NameValidation from "../Validator/NameValidator";
 import EmailValidator from "../Validator/EmailValidator";
 import MobileNumberValidator from "../Validator/NumberValidator";
 
 function Sing_Up() {
+  const [name, setName]= useState('')
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +16,8 @@ function Sing_Up() {
   console.log(password);
   console.log(confiremPass);
   const dispatch = useDispatch();
-
-  const [error, setError] = useState("");
+  const [error, setError] = useState("")
+  const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
   const fire = (e) => {
     e.preventDefault();
@@ -28,16 +30,22 @@ function Sing_Up() {
         Email: email,
       })
     );
-
+    let nameValidation = new NameValidation(name)
+    console.log(nameValidation)
+    if(nameValidation.NameValidator){
+      setError("")
+    }else{
+      setError("Name is not valid")
+    }
     // Now here is the main opration of validator
     let numberValidatior = false;
     numberValidatior = new MobileNumberValidator(mobile);
     console.log(numberValidatior);
 
     if (numberValidatior.isValid == true) {
-      setError("");
+      setError1("");
     } else {
-      setError("Invalid mobile number. Please enter a valid number.");
+      setError1("Invalid mobile number. Please enter a valid number.");
     }
 
     const emailValidator = new EmailValidator(email)
@@ -62,10 +70,13 @@ function Sing_Up() {
             <input
               type="text"
               className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-200 border rounded-md hover:ring-2 hover:ring-orange-500 hover:outline-none"
-              placeholder="Enter your full name"
+              placeholder="Enter your Full Name"
+              onChange={(e)=>{
+                setName(e.target.value)
+              }}
             />
           </div>
-
+              {error && <p className="text-red-600 mb-4">{error}</p>}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Mobile
@@ -80,7 +91,7 @@ function Sing_Up() {
             />
           </div>
 
-          {error && <p className="text-red-600 mb-4">{error}</p>}
+          {error1 && <p className="text-red-600 mb-4">{error1}</p>}
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
