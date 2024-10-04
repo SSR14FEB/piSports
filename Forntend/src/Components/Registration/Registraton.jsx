@@ -55,7 +55,7 @@ function Registraton() {
   };
 
   return (
-    <div className="w-full h-[100%] grid grid-rows-[100vh] grid-cols-[25%_70%]">
+    <div className="w-full h-[100%] grid grid-rows-[170vh] grid-cols-[25%_70%]">
       <div className=" row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center bg-gray-100">
         <div className="mt-20 justify-center align-top gap-2 text-left">
           <label htmlFor="Register as a" className="font-[450]">
@@ -80,7 +80,7 @@ function Registraton() {
         </div>
       </div>
 
-      <div className="col-start-2 col-end-3">
+      <div className="col-start-2 col-end-3 ml-10">
         <header className="flex flex-col h-[132px] justify-between">
           <p className="relative mt-5 ml-5 text-orange-500">
             <Link to="/*">
@@ -204,42 +204,30 @@ function Registraton() {
                     name="physicallyDisabled"
                     onChange={(e) => setPhysicallyDisabled(e.target.value)}
                   />
-
-                 
                 </div>
-                
               </div>
-              
             </div>
             <div className="flex flex-col ml-6 mt-8 shadow-md">
-                    <label
-                      htmlFor="blood"
-                      className="text-base font-medium mb-2"
-                    >
-                      Blood Group
-                    </label>
-                    <select
-                      id="blood"
-                      className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-blue-500 focus:border-blue-500 py-1 px-1"
-                    >
-                      <option
-                        value=""
-                        className="text-gray-400"
-                        disabled
-                        selected
-                      >
-                        Select your blood group
-                      </option>
-                      <option value="A+">A+</option>
-                      <option value="A-">A-</option>
-                      <option value="B+">B+</option>
-                      <option value="B-">B-</option>
-                      <option value="AB+">AB+</option>
-                      <option value="AB-">AB-</option>
-                      <option value="O+">O+</option>
-                      <option value="O-">O-</option>
-                    </select>
-                  </div>
+              <label htmlFor="blood" className="text-base font-medium mb-2">
+                Blood Group
+              </label>
+              <select
+                id="blood"
+                className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-blue-500 focus:border-blue-500 py-1 px-1"
+              >
+                <option value="" className="text-gray-400" disabled selected>
+                  Select your blood group
+                </option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </div>
           </section>
 
           <section className="w-[38vw] flex  ">
@@ -293,7 +281,7 @@ function Registraton() {
             </div>
           </section>
           <section className="w-[38vw] h-24 flex flex-wrap justify-between">
-            <div className=" flex flex-col justify-center ml-10 mt-4 h-24">
+            <div className=" flex flex-col justify-center ml-10 mb-4 h-24">
               <label htmlFor="datepicker">DOB</label>
               <input
                 type="date"
@@ -319,12 +307,13 @@ function Registraton() {
             <textarea
               name=""
               id="About"
+              maxLength='101'
               className="w-[50%] h-[30vh]  bg-white shadow appearance-none  text-black border-2  rounded-sm pl-1  focus:shadow-outline"
               placeholder="Write aobut Your self withn 100 char"
               onChange={(e) => {
-                e.target.value.length > 100
+                e.target.value.length > 500
                   ? alert(
-                      `You have exceeded the limit of 100 characters by $ {e.target.value.length - 200} characters.`
+                      `You have exceeded the limit of 500 characters by  characters.`
                     )
                   : "";
               }}
@@ -355,7 +344,9 @@ function Registraton() {
                   className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
                   onClick={(e) => setRole(e.target.value)}
                 >
-                  <option value="" disabled selected>Select Your Game Role</option>
+                  <option value="" disabled selected>
+                    Select Your Game Role
+                  </option>
                   <option value="Batsman">Batsman</option>
                   <option value="Bowler">Bowler</option>
                   <option value="All-Rounder">All-Rounder</option>
@@ -377,7 +368,9 @@ function Registraton() {
                   className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
                   onClick={(e) => setRole(e.target.value)}
                 >
-                  <option value=""disabled selected>Select Your Game Role</option>
+                  <option value="" disabled selected>
+                    Select Your Game Role
+                  </option>
                   <option value="Goalkeeper">Goalkeeper</option>
                   <option value="Defender">Defender</option>
                   <option value="Midfielder">Midfielder</option>
@@ -406,7 +399,9 @@ function Registraton() {
                   className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
                   onClick={(e) => setRole(e.target.value)}
                 >
-                  <option value="" disabled selected>Select Your Game Role</option>
+                  <option value="" disabled selected>
+                    Select Your Game Role
+                  </option>
                   <option value="Raider">Raider</option>
                   <option value="Defender">Defender</option>
                   <option value="All-Rounder">All-Rounder</option>
@@ -419,6 +414,13 @@ function Registraton() {
               ) : (
                 ""
               )}
+            </div>
+          </section>
+          <section className="w-[38vw] h-24 flex flex-wrap justify-center ">
+            <div className="w-[32.5vw] flex flex-wrap items-center justify-start mt-5">
+              <button className="bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-sm px-2 py-1">
+                Update profile
+              </button>
             </div>
           </section>
         </section>
