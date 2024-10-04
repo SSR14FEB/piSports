@@ -57,14 +57,14 @@ function Registraton() {
   return (
     <div className="w-full h-[100%] grid grid-rows-[170vh] grid-cols-[25%_70%]">
       <div className=" row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center bg-gray-100">
-        <div className="mt-20 justify-center align-top gap-2 text-left">
+        <div className="mt-20 justify-center align-top gap-2 text-left fixed">
           <label htmlFor="Register as a" className="font-[450]">
             Register as a
           </label>
           <select
             name="Register as a"
             id="Register as a"
-            className="h-7 w-[120%] rounded-md hover:ring ring-orange-500 hover:outline-none bg-white text-black"
+            className="h-7 w-[120%] rounded-md hover:ring ring-orange-500 hover:outline-none bg-white text-black "
             onChange={(e) => setRegister(e.target.value)}
           >
             <option value="Player" className="w-[120%]">
