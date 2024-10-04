@@ -20,12 +20,13 @@ function Sing_Up() {
   const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
   const fire = (e) => {
-    e.preventDefault();
+    
 
     // firening Redux tool kit dispatcher
 
     dispatch(
       contactInfo({
+        Name:name,
         Mobile: mobile,
         Email: email,
       })

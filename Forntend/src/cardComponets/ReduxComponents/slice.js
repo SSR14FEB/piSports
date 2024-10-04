@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   info: {
     value: false,
+    Name:'',
     Mobile: '',
     Email: '',
   }
@@ -16,9 +17,10 @@ export const slice = createSlice({
       state.info.value = action.payload; // Directly update value
     },
     contactInfo: (state, action) => { // Rename from 'const' to a valid name
-      const { Mobile, Email } = action.payload; // Destructure payload
+      const { Mobile, Email, Name } = action.payload; // Destructure payload
       state.info.Mobile = Mobile; // Update Mobile field
       state.info.Email = Email;   // Update Email field
+      state.info.Name= Name;
     },
   },
 });

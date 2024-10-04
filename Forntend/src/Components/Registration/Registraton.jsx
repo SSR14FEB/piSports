@@ -21,6 +21,7 @@ function Registraton() {
   const [sug, setSug] = useState("UserId");
 
   // To Retrive (Email, Mobile number) use thes varibels mobile and email
+  const name = useSelector((state)=> state.info.Name);
   const mobile = useSelector((state) => state.info.Mobile);
   const email = useSelector((state) => state.info.Email);
 
@@ -97,11 +98,23 @@ function Registraton() {
         <section className="relative w-full h-screen left-10">
           {/* form start from here  */}
           <section>
-            <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
-              <label htmlFor="Name">UserID</label>
+
+          <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+              <label htmlFor="Name">Name</label>
               <input
+                readOnly
+                value={name}
                 type="text"
                 id="Name"
+                className="bg-white border rounded-sm pl-1 "
+              />
+            </div>
+
+            <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+              <label htmlFor="UserId">UserID</label>
+              <input
+                type="text"
+                id="UserId"
                 className="bg-white border rounded-sm pl-1 "
                 placeholder="UserId"
                 onChange={(e) => {
