@@ -21,7 +21,7 @@ function Registraton() {
   const [sug, setSug] = useState("UserId");
 
   // To Retrive (Email, Mobile number) use thes varibels mobile and email
-  const name = useSelector((state)=> state.info.Name);
+  const name = useSelector((state) => state.info.Name);
   const mobile = useSelector((state) => state.info.Mobile);
   const email = useSelector((state) => state.info.Email);
 
@@ -55,58 +55,58 @@ function Registraton() {
   };
 
   return (
-    <div className=" w-full h-full grid grid-rows-[100%] grid-cols-[25%_70%] ">
-      <div className=" row-span-1 col-start-1 col-end-2 flex justify-center bg-gray-100">
-        <div className="  mt-20 justify-center align-top gap-2 text-left ">
-          <label for="Register as a" className="font-[450]">
+    <div className="w-full h-[100%] grid grid-rows-[100vh] grid-cols-[25%_70%]">
+      <div className=" row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center bg-gray-100">
+        <div className="mt-20 justify-center align-top gap-2 text-left">
+          <label htmlFor="Register as a" className="font-[450]">
             Register as a
           </label>
           <select
             name="Register as a"
             id="Register as a"
-            className=" h-7 w-[120%] rounded-md hover:ring ring-orange-500 hover:outline-none bg-white text-black"
+            className="h-7 w-[120%] rounded-md hover:ring ring-orange-500 hover:outline-none bg-white text-black"
             onChange={(e) => setRegister(e.target.value)}
           >
-            <option value="Player" className="w-[120%] ">
+            <option value="Player" className="w-[120%]">
               Player
             </option>
-            <option value="Team" className="w-[120%]  ">
+            <option value="Team" className="w-[120%]">
               Team
             </option>
-            <option value="Event" className="w-[120%]  ">
+            <option value="Event" className="w-[120%]">
               Event
             </option>
           </select>
         </div>
       </div>
+
       <div className="col-start-2 col-end-3">
-        <header className="flex flex-col h-[132px] justify-between ">
+        <header className="flex flex-col h-[132px] justify-between">
           <p className="relative mt-5 ml-5 text-orange-500">
             <Link to="/*">
               <strong>piSports</strong>
             </Link>
           </p>
           <div>
-            <p className="  relative  ml-20 ">
+            <p className="relative ml-20">
               <strong>{resgister}</strong>
             </p>
-            <p className=" relative ml-20">
+            <p className="relative ml-20">
               This is how others will see you on the site.
             </p>
           </div>
         </header>
-        <section className="relative w-full h-screen left-10">
-          {/* form start from here  */}
-          <section>
 
-          <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+        <section className="relative w-full h-screen left-10">
+          <section>
+            <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
               <label htmlFor="Name">Name</label>
               <input
                 readOnly
                 value={name}
                 type="text"
                 id="Name"
-                className="bg-white border rounded-sm pl-1 "
+                className="bg-white border rounded-sm pl-1"
               />
             </div>
 
@@ -115,41 +115,44 @@ function Registraton() {
               <input
                 type="text"
                 id="UserId"
-                className="bg-white border rounded-sm pl-1 "
+                className="bg-white border rounded-sm pl-1"
                 placeholder="UserId"
                 onChange={(e) => {
                   const val = e.target.value;
                   if (val.length > 5) setUserId(e.target.value);
                   else {
-                    setSug("Userid must have more then  5 char");
+                    setSug("Userid must have more than 5 char");
                   }
                 }}
               />
             </div>
+
             <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
               <label htmlFor="Email">Email</label>
               <input
                 readOnly
                 type="Email"
                 id="Email"
-                className="bg-white border rounded-sm pl-1 "
+                className="bg-white border rounded-sm pl-1"
                 placeholder="Enter Your Email"
                 value={email}
               />
             </div>
           </section>
+
+          {/* Mobile and Image */}
           <div className="gap-2 w-[48vw] mt-4 ml-10 flex flex-wrap justify-between">
             <div>
-              <label htmlFor="India">Moblie</label>
-              <div className="w-52 flex justify-between ">
-                <span className="text-gray-500 border-gray-200 border rounded-s m ">
+              <label htmlFor="India">Mobile</label>
+              <div className="w-52 flex justify-between">
+                <span className="text-gray-500 border-gray-200 border rounded-s">
                   +91
                 </span>
                 <input
                   readOnly
                   type="tel"
                   id="India"
-                  className="border-2  hover:border-l-0 rounded-sm pl-1  "
+                  className="border-2 hover:border-l-0 rounded-sm pl-1"
                   placeholder="012-345-6789"
                   value={mobile}
                 />
@@ -157,9 +160,88 @@ function Registraton() {
             </div>
             <div className="flex flex-col">
               <label htmlFor="Image">Image</label>
-              <input type="file"></input>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const img = e.target.files[0];
+                  const imgSize = img.size / 1024;
+                  if (imgSize <= 500) {
+                    alert("File Uploded Success Fully");
+                    e.target.value = null;
+                  } else
+                    alert(
+                      "File size exceeds 500KB. Please upload a smaller image."
+                    );
+                }}
+              />
             </div>
           </div>
+
+          {/* Physically Disabled Section */}
+          <section className="w-[50vw] flex ">
+            <div className="w-[24vw] mt-4 ml-10 flex flex-col justify-between">
+              <label htmlFor="PhysicallyDisabled" className="mt-4 mb-2">
+                Are you Physically Disabled?
+              </label>
+              <div className="w-52 flex justify-start gap-5">
+                <div className="flex items-center gap-2">
+                  <label htmlFor="Yes">Yes</label>
+                  <input
+                    type="radio"
+                    id="Yes"
+                    value="Yes"
+                    name="physicallyDisabled"
+                    onChange={(e) => setPhysicallyDisabled(e.target.value)}
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label htmlFor="No">No</label>
+                  <input
+                    type="radio"
+                    id="No"
+                    value="No"
+                    name="physicallyDisabled"
+                    onChange={(e) => setPhysicallyDisabled(e.target.value)}
+                  />
+
+                 
+                </div>
+                
+              </div>
+              
+            </div>
+            <div className="flex flex-col ml-6 mt-8 shadow-md">
+                    <label
+                      htmlFor="blood"
+                      className="text-base font-medium mb-2"
+                    >
+                      Blood Group
+                    </label>
+                    <select
+                      id="blood"
+                      className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-blue-500 focus:border-blue-500 py-1 px-1"
+                    >
+                      <option
+                        value=""
+                        className="text-gray-400"
+                        disabled
+                        selected
+                      >
+                        Select your blood group
+                      </option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                    </select>
+                  </div>
+          </section>
+
           <section className="w-[38vw] flex  ">
             <div className="w-[24vw] mt-4 ml-10 flex flex-col justify-between">
               <label htmlFor="Male" className="mt-4 mb-2">
@@ -232,13 +314,29 @@ function Registraton() {
               />
             </div>
           </section>
+          <section className=" ml-10 flex flex-wrap flex-col">
+            <label htmlFor="About">About</label>
+            <textarea
+              name=""
+              id="About"
+              className="w-[50%] h-[30vh]  bg-white shadow appearance-none  text-black border-2  rounded-sm pl-1  focus:shadow-outline"
+              placeholder="Write aobut Your self withn 100 char"
+              onChange={(e) => {
+                e.target.value.length > 100
+                  ? alert(
+                      `You have exceeded the limit of 100 characters by $ {e.target.value.length - 200} characters.`
+                    )
+                  : "";
+              }}
+            />
+          </section>
 
           <section className="w-[38vw] h-24 flex flex-wrap justify-between ">
             <div className=" flex flex-col justify-center ml-10 mt-4 h-24">
               <label htmlFor="Sports">Sports</label>
               <select
                 id="Sports"
-                className=" bg-white border"
+                className=" bg-white border border-gray-300 rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
                 onClick={(e) => setSports(e.target.value)}
               >
                 <option value="Cricket">Cricket</option>
@@ -254,10 +352,10 @@ function Registraton() {
               {sports == "Cricket" ? (
                 <select
                   id="Profile"
-                  className="bg-white border"
+                  className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
                   onClick={(e) => setRole(e.target.value)}
                 >
-                  <option value="">Select Your Game Role</option>
+                  <option value="" disabled selected>Select Your Game Role</option>
                   <option value="Batsman">Batsman</option>
                   <option value="Bowler">Bowler</option>
                   <option value="All-Rounder">All-Rounder</option>
@@ -276,10 +374,10 @@ function Registraton() {
               {sports == "Soccer" ? (
                 <select
                   id="Profile"
-                  className="bg-white border"
+                  className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
                   onClick={(e) => setRole(e.target.value)}
                 >
-                  <option value="">Select Your Game Role</option>
+                  <option value=""disabled selected>Select Your Game Role</option>
                   <option value="Goalkeeper">Goalkeeper</option>
                   <option value="Defender">Defender</option>
                   <option value="Midfielder">Midfielder</option>
@@ -305,10 +403,10 @@ function Registraton() {
               {sports === "Kabaddi" ? (
                 <select
                   id="Profile"
-                  className="bg-white border"
+                  className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
                   onClick={(e) => setRole(e.target.value)}
                 >
-                  <option value="">Select Your Game Role</option>
+                  <option value="" disabled selected>Select Your Game Role</option>
                   <option value="Raider">Raider</option>
                   <option value="Defender">Defender</option>
                   <option value="All-Rounder">All-Rounder</option>
