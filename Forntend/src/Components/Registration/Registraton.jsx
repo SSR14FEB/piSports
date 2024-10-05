@@ -1,3 +1,6 @@
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "flatpickr/dist/flatpickr.css";
@@ -55,18 +58,42 @@ function Registraton() {
   };
   // form validation
   const reg = (e) => {
-    const id = document.querySelectorAll('[id]')
-    for(let i=2;i<id.length;i++){
-      if(id[i].value===''){
-        alert('Please fill the form properly')
-        break;
+    const id = document.querySelectorAll("[id]");
+    for (let i = 2; i < id.length; i++) {
+      if (id[i].value === "") {
+        e.preventDefault();
+        Swal.fire({
+          title: "Error!",
+          text: "Please Fill The Form Properly",
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
       }
     }
-
-  }
+    async function dataSend() {
+      Swal.fire({
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    }
+  };
 
   return (
-    <form className="w-full h-[100%] grid grid-rows-[170vh] grid-cols-[25%_70%]">
+    <form
+      className="w-full h-[100%] grid grid-rows-[170vh] grid-cols-[25%_70%]"
+      form
+      action="none"
+    >
       <div className=" row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center bg-gray-100">
         <div className="mt-20 justify-center align-top gap-2 text-left fixed">
           <label htmlFor="Register as a" className="font-[450]">
@@ -107,48 +134,89 @@ function Registraton() {
             </p>
           </div>
         </header>
-
         <section className="relative w-full h-screen left-10">
-          <section>
-            <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
-              <label htmlFor="Name">Name</label>
-              <input
-                value={name}
-                type="text"
-                id="Name"
-                className="bg-white border rounded-sm pl-1"
-              />
-            </div>
+          {resgister == "Team" ? (
+            <section>
+              <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+                <label htmlFor="Team">Team Name</label>
+                <input
+                  type="text"
+                  id="Team"
+                  className="bg-white border rounded-sm pl-1"
+                />
+              </div>
 
-            <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
-              <label htmlFor="UserId">UserID</label>
-              <input
-                type="text"
-                id="UserId"
-                className="bg-white border rounded-sm pl-1"
-                placeholder="UserId"
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val.length > 5) setUserId(e.target.value);
-                  else {
-                    setSug("Userid must have more than 5 char");
-                  }
-                }}
-              />
-            </div>
+              <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+                <label htmlFor="TeamId">Team Id</label>
+                <input
+                  type="text"
+                  id="UserId"
+                  className="bg-white border rounded-sm pl-1"
+                  placeholder="TeamId"
+                  // onChange={(e) => {
+                  //   const val = e.target.value;
+                  //   if (val.length > 5) setUserId(e.target.value);
+                  //   else {
+                  //     setSug("Userid must have more than 5 char");
+                  //   }
+                  // }}
+                />
+              </div>
 
-            <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
-              <label htmlFor="Email">Email</label>
-              <input
-                readOnly
-                type="Email"
-                id="Email"
-                className="bg-white border rounded-sm pl-1"
-                placeholder="Enter Your Email"
-                value={email}
-              />
-            </div>
-          </section>
+              <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+                <label htmlFor="Email">Email</label>
+                <input
+                  readOnly
+                  type="Email"
+                  id="Email"
+                  className="bg-white border rounded-sm pl-1"
+                  placeholder="Enter Your Email"
+                  value={email}
+                />
+              </div>
+            </section>
+          ) : (
+            <section>
+              <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+                <label htmlFor="Name">Name</label>
+                <input
+                  value={name}
+                  type="text"
+                  id="Name"
+                  className="bg-white border rounded-sm pl-1"
+                />
+              </div>
+
+              <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+                <label htmlFor="UserId">UserID</label>
+                <input
+                  type="text"
+                  id="UserId"
+                  className="bg-white border rounded-sm pl-1"
+                  placeholder="UserId"
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val.length > 5) setUserId(e.target.value);
+                    else {
+                      setSug("Userid must have more than 5 char");
+                    }
+                  }}
+                />
+              </div>
+
+              <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+                <label htmlFor="Email">Email</label>
+                <input
+                  readOnly
+                  type="Email"
+                  id="Email"
+                  className="bg-white border rounded-sm pl-1"
+                  placeholder="Enter Your Email"
+                  value={email}
+                />
+              </div>
+            </section>
+          )}
 
           {/* Mobile and Image */}
           <div className="gap-2 w-[48vw] mt-4 ml-10 flex flex-wrap justify-between">

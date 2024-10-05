@@ -36,6 +36,7 @@ function Sing_Up() {
     if(nameValidation.NameValidator){
       setError("")
     }else{
+      e.preventDefault();
       setError("Name is not valid")
     }
     // Now here is the main opration of validator
@@ -46,6 +47,7 @@ function Sing_Up() {
     if (numberValidatior.isValid == true) {
       setError1("");
     } else {
+      e.preventDefault();
       setError1("Invalid mobile number. Please enter a valid number.");
     }
 
@@ -53,6 +55,7 @@ function Sing_Up() {
     if (emailValidator.validateEmail()) {
       setError2("");
     } else {
+      e.preventDefault();
       setError2("Invalid email Id. Please enter a valid email Id ");
     }
   };
