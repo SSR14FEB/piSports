@@ -53,9 +53,20 @@ function Registraton() {
     const calculatedAge = differenceInYears(new Date(), new Date(datee));
     setAge(calculatedAge);
   };
+  // form validation
+  const reg = (e) => {
+    const id = document.querySelectorAll('[id]')
+    for(let i=2;i<id.length;i++){
+      if(id[i].value===''){
+        alert('Please fill the form properly')
+        break;
+      }
+    }
+
+  }
 
   return (
-    <div className="w-full h-[100%] grid grid-rows-[170vh] grid-cols-[25%_70%]">
+    <form className="w-full h-[100%] grid grid-rows-[170vh] grid-cols-[25%_70%]">
       <div className=" row-start-1 row-end-2 col-start-1 col-end-2 flex justify-center bg-gray-100">
         <div className="mt-20 justify-center align-top gap-2 text-left fixed">
           <label htmlFor="Register as a" className="font-[450]">
@@ -102,7 +113,6 @@ function Registraton() {
             <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
               <label htmlFor="Name">Name</label>
               <input
-                readOnly
                 value={name}
                 type="text"
                 id="Name"
@@ -307,7 +317,7 @@ function Registraton() {
             <textarea
               name=""
               id="About"
-              maxLength='101'
+              maxLength="101"
               className="w-[50%] h-[30vh]  bg-white shadow appearance-none  text-black border-2  rounded-sm pl-1  focus:shadow-outline"
               placeholder="Write aobut Your self withn 100 char"
               onChange={(e) => {
@@ -418,14 +428,17 @@ function Registraton() {
           </section>
           <section className="w-[38vw] h-24 flex flex-wrap justify-center ">
             <div className="w-[32.5vw] flex flex-wrap items-center justify-start mt-5">
-              <button className="bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-sm px-2 py-1">
+              <button
+                className="bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-sm px-2 py-1"
+                onClick={reg}
+              >
                 Update profile
               </button>
             </div>
           </section>
         </section>
       </div>
-    </div>
+    </form>
   );
 }
 export default Registraton;
