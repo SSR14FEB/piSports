@@ -54,6 +54,9 @@ function Registraton() {
   const cale = (Event) => {
     setDatee(Event.target.value);
     const calculatedAge = differenceInYears(new Date(), new Date(datee));
+    if(calculatedAge == 0 || calculatedAge == NaN)
+      alert("Please Slecte Valid Date")
+      else
     setAge(calculatedAge);
   };
   // form validation
@@ -63,7 +66,7 @@ function Registraton() {
       if (id[i].value === "") {
         e.preventDefault();
         Swal.fire({
-          title: "Error!",
+          title: "Its Look Your Energy is Low!",
           text: "Please Fill The Form Properly",
           icon: "error",
           confirmButtonText: "Cool",
@@ -122,15 +125,15 @@ function Registraton() {
         <header className="flex flex-col h-[132px] justify-between">
           <p className="relative mt-5 ml-5 text-orange-500">
             <Link to="/*">
-              <strong>piSports</strong>
+              <strong>PiSports</strong>
             </Link>
           </p>
           <div>
             <p className="relative ml-20">
-              <strong>{resgister}</strong>
+              <strong className="font-bold text-lg">{resgister}</strong>
             </p>
-            <p className="relative ml-20">
-              This is how others will see you on the site.
+            <p className="text-xs font-semibold relative ml-20">
+              Register Now, Be Part of Something Big!
             </p>
           </div>
         </header>
@@ -285,16 +288,16 @@ function Registraton() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col ml-6 mt-8 shadow-md">
+            <div className="flex flex-col ml-6 mt-8 ">
               <label htmlFor="blood" className="text-base font-medium mb-2">
                 Blood Group
               </label>
               <select
                 id="blood"
-                className="bg-white border border-gray-300 rounded-md focus:ring focus:ring-blue-500 focus:border-blue-500 py-1 px-1"
+                className="bg-white border shadow-md rounded-md focus:ring focus:ring-blue-500 focus:border-blue-500 py-1 px-1"
               >
                 <option value="" className="text-gray-400" disabled selected>
-                  Select your blood group
+                  Blood group
                 </option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
@@ -351,14 +354,14 @@ function Registraton() {
               <label htmlFor="Languge">Languge</label>
               <select
                 id="Name"
-                className="bg-white border rounded-sm pl-4 appearance-none "
+                className="bg-white border rounded-sm pl-4 w-28 appearance-none "
               >
                 <option value="Hindi">Hindi</option>
                 <option value="English">English</option>
               </select>
             </div>
           </section>
-          <section className="w-[38vw] h-24 flex flex-wrap justify-between">
+          <section className="w-[37vw] h-24 flex flex-wrap justify-between">
             <div className=" flex flex-col justify-center ml-10 mb-4 h-24">
               <label htmlFor="datepicker">DOB</label>
               <input
@@ -370,12 +373,12 @@ function Registraton() {
               />
             </div>
 
-            <div className=" flex flex-col justify-center ml-10 mt-4 h-24">
+            <div className=" flex flex-col justify-center ml-10  h-24">
               <label htmlFor="datepicker">Age</label>
               <input
                 type="text"
                 value={age}
-                className="w-32 text-center border "
+                className="w-28 text-center border "
                 readOnly
               />
             </div>
@@ -383,13 +386,14 @@ function Registraton() {
           <section className=" ml-10 flex flex-wrap flex-col">
             <label htmlFor="About">About</label>
             <textarea
+              
               name=""
               id="About"
               maxLength="101"
-              className="w-[50%] h-[30vh]  bg-white shadow appearance-none  text-black border-2  rounded-sm pl-1  focus:shadow-outline"
+              className="w-[50%] h-[10vh]  bg-white shadow appearance-none  text-black border-2  rounded-sm pl-1  focus:shadow-outline resize-none"
               placeholder="Write aobut Your self withn 100 char"
               onChange={(e) => {
-                e.target.value.length > 500
+                e.target.value.length > 100
                   ? alert(
                       `You have exceeded the limit of 500 characters by  characters.`
                     )
@@ -493,6 +497,12 @@ function Registraton() {
                 ""
               )}
             </div>
+            <div className="w-[38vw] h-24 flex flex-wrap justify-between ">
+                <div>
+              
+                 
+                </div>
+              </div>
           </section>
           <section className="w-[38vw] h-24 flex flex-wrap justify-center ">
             <div className="w-[32.5vw] flex flex-wrap items-center justify-start mt-5">
