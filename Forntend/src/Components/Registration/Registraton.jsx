@@ -54,10 +54,9 @@ function Registraton() {
   const cale = (Event) => {
     setDatee(Event.target.value);
     const calculatedAge = differenceInYears(new Date(), new Date(datee));
-    if(calculatedAge == 0 || calculatedAge == NaN)
-      alert("Please Slecte Valid Date")
-      else
-    setAge(calculatedAge);
+    if (calculatedAge == 0 || calculatedAge == NaN)
+      alert("Please Slecte Valid Date");
+    else setAge(calculatedAge);
   };
   // form validation
   const reg = (e) => {
@@ -233,7 +232,7 @@ function Registraton() {
                   readOnly
                   type="tel"
                   id="India"
-                  className="border-2 hover:border-l-0 rounded-sm pl-1"
+                  className="border-2  rounded-sm pl-1"
                   placeholder="012-345-6789"
                   value={mobile}
                 />
@@ -243,7 +242,7 @@ function Registraton() {
               <label htmlFor="Image">Image</label>
               <input
                 type="file"
-                accept="image/*"
+                accept="Image/*"
                 onChange={(e) => {
                   const img = e.target.files[0];
                   const imgSize = img.size / 1024;
@@ -269,6 +268,7 @@ function Registraton() {
                 <div className="flex items-center gap-2">
                   <label htmlFor="Yes">Yes</label>
                   <input
+                    className="appearance-auto checked:text-orange-500"
                     type="radio"
                     id="Yes"
                     value="Yes"
@@ -294,9 +294,14 @@ function Registraton() {
               </label>
               <select
                 id="blood"
-                className="bg-white border shadow-md rounded-md focus:ring focus:ring-blue-500 focus:border-blue-500 py-1 px-1"
+                className="bg-white text-center  border-none shadow-md rounded-md focus:ring focus:ring-orange-500 focus:border-orange-500 py-1 px-1"
               >
-                <option value="" className="text-gray-400" disabled selected>
+                <option
+                  value=""
+                  className="text-orange-600 border-black"
+                  disabled
+                  selected
+                >
                   Blood group
                 </option>
                 <option value="A+">A+</option>
@@ -368,7 +373,7 @@ function Registraton() {
                 type="date"
                 icon={"black"}
                 placeholder="Date of birth"
-                className="text-white text-center border appearance-auto bg-[#854949]"
+                className="text-orange-600 text-center border appearance-auto "
                 onChange={cale}
               />
             </div>
@@ -386,7 +391,6 @@ function Registraton() {
           <section className=" ml-10 flex flex-wrap flex-col">
             <label htmlFor="About">About</label>
             <textarea
-              
               name=""
               id="About"
               maxLength="101"
@@ -498,11 +502,9 @@ function Registraton() {
               )}
             </div>
             <div className="w-[38vw] h-24 flex flex-wrap justify-between ">
-                <div>
-              
-                 
-                </div>
-              </div>
+              <div></div>
+            </div>
+            <input type="checkbox" name="" id="" />
           </section>
           <section className="w-[38vw] h-24 flex flex-wrap justify-center ">
             <div className="w-[32.5vw] flex flex-wrap items-center justify-start mt-5">

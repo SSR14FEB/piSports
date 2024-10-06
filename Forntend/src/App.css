@@ -1,6 +1,7 @@
 body{
     /* frontend hello*/
-    background-color: none;
+    background-color: white;
+    color: black;
 }
 input{
     background-color: white;
