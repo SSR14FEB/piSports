@@ -24,13 +24,16 @@ function Registraton() {
   const [sug, setSug] = useState("UserId");
 
   // To Retrive (Email, Mobile number) use thes varibels mobile and email
-  const name = useSelector((state) => state.info.Name);
+  const formName = useSelector((state) => state.info.Name);
   const mobile = useSelector((state) => state.info.Mobile);
   const email = useSelector((state) => state.info.Email);
 
   console.log("info", email, mobile);
 
   console.log("UserID", userId);
+  // To retrive form name use name
+  const [name, setName] = useState(formName);
+
   // To retrive gender values use gender
   const [gender, setGender] = useState("");
   console.log(gender);
@@ -40,8 +43,8 @@ function Registraton() {
   const [male, setMale] = useState(false);
 
   // date caluculation use (datee for date) and use (age for age)
-  const [datee, setDatee] = useState();
-  const [age, setAge] = useState(null);
+  const [datee, setDatee] = useState("");
+  const [age, setAge] = useState("");
 
   // to Retrive slected game fieled form Sprots drop down use (sports) for backend
   const [sports, setSports] = useState("Cricket");
@@ -51,11 +54,9 @@ function Registraton() {
   const [role, setRole] = useState("");
   console.log(role);
   //Date Calculator
-  const cale = (Event) => {
-    setDatee(Event.target.value);
+  const cale = () => {
     const calculatedAge = differenceInYears(new Date(), new Date(datee));
-    if (calculatedAge == 0 || calculatedAge == NaN)
-      alert("Please Slecte Valid Date");
+    if (calculatedAge == 0 || calculatedAge) alert("Please Slecte Valid Date");
     else setAge(calculatedAge);
   };
   // form validation
@@ -186,7 +187,13 @@ function Registraton() {
                   type="text"
                   id="Name"
                   className="bg-white border rounded-sm pl-1"
+                  onChange={(e) => setName(e.target.value)}
                 />
+                {name.length < 3 ? (
+                  <p className="text-red-600 "> Name is not valid </p>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
@@ -246,13 +253,14 @@ function Registraton() {
                 onChange={(e) => {
                   const img = e.target.files[0];
                   const imgSize = img.size / 1024;
-                  if (imgSize <= 500) {
+                  if (imgSize <= 400) {
                     alert("File Uploded Success Fully");
-                    e.target.value = null;
-                  } else
+                  } else {
                     alert(
                       "File size exceeds 500KB. Please upload a smaller image."
                     );
+                    e.target.value = null;
+                  }
                 }}
               />
             </div>
@@ -316,7 +324,7 @@ function Registraton() {
             </div>
           </section>
 
-          <section className="w-[38vw] flex  ">
+          <section className="w-[38vw] flex justify-center ">
             <div className="w-[24vw] mt-4 ml-10 flex flex-col justify-between">
               <label htmlFor="Male" className="mt-4 mb-2">
                 Gender
@@ -374,7 +382,13 @@ function Registraton() {
                 icon={"black"}
                 placeholder="Date of birth"
                 className="text-orange-600 text-center border appearance-auto "
-                onChange={cale}
+                onChange={(e) => {
+                  setDatee(e.target.value);
+                  if (datee.length == 10) {
+                    console.log(datee);
+                    cale();
+                  }
+                }}
               />
             </div>
 
@@ -501,12 +515,22 @@ function Registraton() {
                 ""
               )}
             </div>
-            <div className="w-[38vw] h-24 flex flex-wrap justify-between ">
-              <div></div>
-            </div>
-            <input type="checkbox" name="" id="" />
+            { (role=="Bowler"||role=="Batsman")?
+            <div className="w-[38vw] h-24 flex flex-wrap justify-between transition-colors">
+              {/* left hand  */}
+              <div className="gap-2 ml-10">
+              <label htmlFor="Left" className="text-orange-600 font-semibold">Left Handed</label>
+               <input type="checkbox" name="" id="Left" className="border-balck ml-2 " />
+              </div>
+              {/* right hand */}
+              <div className=" gap-2">
+              <label htmlFor="Right"  className="text-orange-600 font-semibold">Right Handed</label>
+               <input type="checkbox" name="" id="Right" className="border-black ml-2" />
+              </div>
+            </div>:""
+            }
           </section>
-          <section className="w-[38vw] h-24 flex flex-wrap justify-center ">
+          <section className="w-[38vw] h-24 flex flex-wrap justify-center mt-5">
             <div className="w-[32.5vw] flex flex-wrap items-center justify-start mt-5">
               <button
                 className="bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-sm px-2 py-1"
