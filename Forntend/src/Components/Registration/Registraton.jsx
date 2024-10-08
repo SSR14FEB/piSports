@@ -69,7 +69,7 @@ function Registraton() {
   }, [datee]);
 
   // form validation
-  const reg = (e) => {
+  const  reg = (e) => {
     const id = document.querySelectorAll("[id]");
     for (let i = 2; i < id.length; i++) {
       if (id[i].value === "") {
@@ -82,23 +82,7 @@ function Registraton() {
         });
       }
     }
-    async function dataSend() {
-      Swal.fire({
-        title: "Do you want to save the changes?",
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: "Save",
-        denyButtonText: `Don't save`,
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire("Saved!", "", "success");
-        } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
-        }
-      });
-    }
-  };
+   };
 
   return (
     <form
@@ -165,13 +149,6 @@ function Registraton() {
                   id="UserId"
                   className="bg-white border rounded-sm pl-1"
                   placeholder="TeamId"
-                  // onChange={(e) => {
-                  //   const val = e.target.value;
-                  //   if (val.length > 5) setUserId(e.target.value);
-                  //   else {
-                  //     setSug("Userid must have more than 5 char");
-                  //   }
-                  // }}
                 />
               </div>
 
