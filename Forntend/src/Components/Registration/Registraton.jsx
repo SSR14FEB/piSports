@@ -1,9 +1,14 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
+import dayjs from "dayjs";
+
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/material_orange.css"; // Choose your preferred theme
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "flatpickr/dist/flatpickr.css";
+// import "flatpickr/dist/flatpickr.css";
 import { differenceInYears } from "date-fns"; // Import the function to calculate age
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -45,7 +50,6 @@ function Registraton() {
   // date caluculation use (datee for date) and use (age for age)
   const [datee, setDatee] = useState("");
   const [age, setAge] = useState("");
-
   // to Retrive slected game fieled form Sprots drop down use (sports) for backend
   const [sports, setSports] = useState("Cricket");
   console.log("sports", sports);
@@ -54,11 +58,16 @@ function Registraton() {
   const [role, setRole] = useState("");
   console.log(role);
   //Date Calculator
-  const cale = () => {
-    const calculatedAge = differenceInYears(new Date(), new Date(datee));
-    if (calculatedAge == 0 || calculatedAge) alert("Please Slecte Valid Date");
-    else setAge(calculatedAge);
-  };
+  useEffect(() => {
+    let today = dayjs();
+    let birth = dayjs(datee);
+    let calculatedAge = today.diff(birth, "year");
+    if (calculatedAge < 8) {
+      calculatedAge = "";
+    }
+    setAge(calculatedAge);
+  }, [datee]);
+
   // form validation
   const reg = (e) => {
     const id = document.querySelectorAll("[id]");
@@ -377,28 +386,40 @@ function Registraton() {
           <section className="w-[37vw] h-24 flex flex-wrap justify-between">
             <div className=" flex flex-col justify-center ml-10 mb-4 h-24">
               <label htmlFor="datepicker">DOB</label>
-              <input
-                type="date"
-                icon={"black"}
-                placeholder="Date of birth"
-                className="text-orange-600 text-center border appearance-auto "
-                onChange={(e) => {
-                  setDatee(e.target.value);
-                  if (datee.length == 10) {
-                    console.log(datee);
-                    cale();
-                  }
+              <Flatpickr
+                placeholder="DOB"
+                onChange={(date) => {
+                  // Format the selected date as YYYY/MM/DD and store it in the state
+                  const formattedDate = date[0]
+                    ? date[0].toISOString().split("T")[0].replace(/-/g, "/")
+                    : "";
+                  setDatee(formattedDate);
                 }}
+                data-enable-time
+                options={{
+                  defaultDate: false,
+                  dateFormat: "d-m-Y", // Customize the format (e.g., "Y-m-d", "d-m-Y")
+                  enableTime: false, // Enable time picker if you want
+                  time_24hr: false,
+                  // Set 24hr format for time
+                  maxDate: "today",
+                }}
+                className="text-orange-600 font-semibold text-center border w-28 shadow-md rounded-md"
               />
             </div>
 
             <div className=" flex flex-col justify-center ml-10  h-24">
               <label htmlFor="datepicker">Age</label>
               <input
+                id="age"
                 type="text"
                 value={age}
                 className="w-28 text-center border "
                 readOnly
+                onChange={(e) => {
+                  const ageVal = e.target.value;
+                  ageVal < 8 ? alert("age is not valid") : "";
+                }}
               />
             </div>
           </section>
@@ -515,20 +536,42 @@ function Registraton() {
                 ""
               )}
             </div>
-            { (role=="Bowler"||role=="Batsman")?
-            <div className="w-[38vw] h-24 flex flex-wrap justify-between transition-colors">
-              {/* left hand  */}
-              <div className="gap-2 ml-10">
-              <label htmlFor="Left" className="text-orange-600 font-semibold">Left Handed</label>
-               <input type="checkbox" name="" id="Left" className="border-balck ml-2 " />
+            {role == "Bowler" || role == "Batsman" ? (
+              <div className="w-[38vw] h-24 flex flex-wrap justify-between transition-colors">
+                {/* left hand  */}
+                <div className="gap-2 ml-10">
+                  <label
+                    htmlFor="Left"
+                    className="text-orange-600 font-semibold"
+                  >
+                    Left Handed
+                  </label>
+                  <input
+                    type="checkbox"
+                    name=""
+                    id="Left"
+                    className="border-balck ml-2 "
+                  />
+                </div>
+                {/* right hand */}
+                <div className=" gap-2">
+                  <label
+                    htmlFor="Right"
+                    className="text-orange-600 font-semibold"
+                  >
+                    Right Handed
+                  </label>
+                  <input
+                    type="checkbox"
+                    name=""
+                    id="Right"
+                    className="border-black ml-2"
+                  />
+                </div>
               </div>
-              {/* right hand */}
-              <div className=" gap-2">
-              <label htmlFor="Right"  className="text-orange-600 font-semibold">Right Handed</label>
-               <input type="checkbox" name="" id="Right" className="border-black ml-2" />
-              </div>
-            </div>:""
-            }
+            ) : (
+              ""
+            )}
           </section>
           <section className="w-[38vw] h-24 flex flex-wrap justify-center mt-5">
             <div className="w-[32.5vw] flex flex-wrap items-center justify-start mt-5">
