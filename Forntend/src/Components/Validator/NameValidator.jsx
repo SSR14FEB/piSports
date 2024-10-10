@@ -5,7 +5,7 @@ export default class NameValidation{
     }
      NameValidator() {
         const regex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
-        if(regex.test(this.name)){
+        if(regex.test(this.name)&& this.name.length>=3){
             return true;
         }
         else{

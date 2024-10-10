@@ -9,10 +9,10 @@ import "flatpickr/dist/themes/material_orange.css"; // Choose your preferred the
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import "flatpickr/dist/flatpickr.css";
-import { differenceInYears } from "date-fns"; // Import the function to calculate age
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { contactInfo } from "../../cardComponets/ReduxComponents/slice";
+import NameValidation from "../Validator/NameValidator";
 function Registraton() {
   // use only to fist part of useState to get data in this case use resgister to get data
   // where console.log() is use to see the if data is passing throug component or not
@@ -36,9 +36,11 @@ function Registraton() {
   console.log("info", email, mobile);
 
   console.log("UserID", userId);
-  // To retrive form name use name
+  // To retrive form name fo Player/Team-owner/Orginiser name use name
   const [name, setName] = useState(formName);
 
+  // To retrive Team Name Use Team Name
+  const [teamName, setTeamName] = useState("");
   // To retrive gender values use gender
   const [gender, setGender] = useState("");
   console.log(gender);
@@ -53,11 +55,11 @@ function Registraton() {
   // to Retrive slected game fieled form Sprots drop down use (sports) for backend
   const [sports, setSports] = useState("Cricket");
   console.log("sports", sports);
-
+  const [error, setError] = useState("");
   // to retrive the data from sports
   const [role, setRole] = useState("");
   console.log(role);
-  //Date Calculator
+  //Age Calculator
   useEffect(() => {
     let today = dayjs();
     let birth = dayjs(datee);
@@ -68,9 +70,10 @@ function Registraton() {
     setAge(calculatedAge);
   }, [datee]);
 
-  // form validation
-  const  reg = (e) => {
+  // F`orm validation
+  const reg = (e) => {
     const id = document.querySelectorAll("[id]");
+    const tnameValidation = new NameValidation(teamName);
     for (let i = 2; i < id.length; i++) {
       if (id[i].value === "") {
         e.preventDefault();
@@ -80,9 +83,20 @@ function Registraton() {
           icon: "error",
           confirmButtonText: "Cool",
         });
+      } else if (id[i].value !== "") {
+        if (!tnameValidation.NameValidator) {
+          e.preventDefault();
+          setError("Team name is not valid");
+          Swal.fire({
+            title: "Its Look Your Energy is Low!",
+            text: "Please Fill The Form Properly",
+            icon: "error",
+            confirmButtonText: "Cool",
+          });
+        }
       }
     }
-   };
+  };
 
   return (
     <form
@@ -134,14 +148,29 @@ function Registraton() {
           {resgister == "Team" ? (
             <section>
               <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
+                <label htmlFor="Team">Team Owner Name</label>
+                <input
+                  type="text"
+                  id="Owner"
+                  value={name}
+                  className="bg-white border rounded-sm pl-1"
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
                 <label htmlFor="Team">Team Name</label>
                 <input
                   type="text"
                   id="Team"
+                  value={teamName}
                   className="bg-white border rounded-sm pl-1"
+                  onChange={(e) => setTeamName(e.target.value)}
                 />
               </div>
-
+              <div className="ml-10">
+                {error && <p className="text-red-400">{error}</p>}
+              </div>
               <div className="mt-4 ml-10 flex flex-col gap-2 w-1/2">
                 <label htmlFor="TeamId">Team Id</label>
                 <input
@@ -385,7 +414,7 @@ function Registraton() {
               />
             </div>
 
-            <div className=" flex flex-col justify-center ml-10  h-24">
+            <div className=" w-32 flex flex-col justify-center   h-24">
               <label htmlFor="datepicker">Age</label>
               <input
                 id="age"
